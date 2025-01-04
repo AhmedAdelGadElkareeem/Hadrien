@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="WytSky.Mobile.Maui.Hadrein.DataTemplates.CatgeoryGridDT"
+    xmlns:resource="clr-namespace:WytSky.Mobile.Maui.Hadrein.AppResources"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
+    x:Name="_root">
+    <Frame
+        Padding="0"
+        BindingContext="{x:Reference _root}"
+        BackgroundColor="{StaticResource White}"
+        CornerRadius="20">
+        <Grid 
+            HorizontalOptions="FillAndExpand"
+            RowSpacing="1"
+            Margin="0"
+            Padding="0"
+            RowDefinitions="Auto,Auto,Auto">
+            <!-- Image -->
+            <ffimageloading:CachedImageView
+                Aspect="{Binding ImageAspect}" 
+                Margin="0"
+                Padding="0"
+                HorizontalOptions="FillAndExpand"
+                HeightRequest="120"
+                Source="{Binding ModelData.CatgeoryImageUrl}"/>
+            <!-- Rate -->
+            <Frame
+                IsVisible="{Binding IsVisibleRate}"
+                Margin="5"
+                Padding="2"
+                BackgroundColor="{StaticResource White}"
+                CornerRadius="30"
+                HeightRequest="30"
+                HorizontalOptions="Start"
+                VerticalOptions="Start"
+                WidthRequest="75">
+                <Grid Margin="5,0" ColumnDefinitions="auto,auto,auto">
+                    <Label
+                        FontAttributes="Bold"
+                        Style="{StaticResource BoldLabelFont12}"
+                        Text="4.5"
+                        TextColor="{StaticResource Black}"
+                        VerticalOptions="CenterAndExpand" />
+                    <Image
+                        Grid.Column="1"
+                        Margin="3,0"
+                        HeightRequest="10"
+                        Source="rate"
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="10" />
+                    <Label
+                        Grid.Column="2"
+                        Style="{StaticResource RegularLabelFont12}"
+                        Text="(25+)"
+                        TextColor="{StaticResource Gray100}"
+                        VerticalOptions="CenterAndExpand" />
+                </Grid>
+            </Frame>
+            <!-- Name -->
+            <Label
+                Grid.Row="1"
+                Margin="0,10,0,0"
+                HorizontalOptions="CenterAndExpand"
+                HorizontalTextAlignment="Center"
+                MaxLines="1"
+                Style="{StaticResource BoldLabelFont18}"
+                Text="{Binding ModelData.Name}"
+                TextColor="{StaticResource Black}"
+                VerticalOptions="Center" />
+            <!-- Delivery Price -->
+            <Grid
+                Grid.Row="2"
+                Margin="5"
+                IsVisible="{Binding IsVisibleDeliveryPrice}"
+                ColumnDefinitions="auto,*"
+                RowSpacing="0"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="Start">
+                <Image
+                    Aspect="AspectFit"
+                    HeightRequest="15"
+                    Source="delivery"
+                    VerticalOptions="Start"
+                    WidthRequest="15" />
+                <Label
+                    Grid.Column="1"
+                    Margin="5,0"
+                    Style="{StaticResource RegularLabelFont12}"
+                    Text="{x:Static resource:SharedResources.Text_FreeDelivery}"
+                    TextColor="{StaticResource Gray200}"
+                    VerticalOptions="CenterAndExpand" />
+            </Grid>
+            <!-- Delivery Time -->
+            <StackLayout
+                Grid.Row="3"
+                HorizontalOptions="CenterAndExpand"
+                IsVisible="{Binding IsVisibleTime}                                                            "
+                Orientation="Horizontal">
+                <Image
+                    Aspect="AspectFit"
+                    HeightRequest="20"
+                    Source="time"
+                    WidthRequest="20" />
+                <Label
+                    HorizontalOptions="CenterAndExpand"
+                    HorizontalTextAlignment="Center"
+                    Style="{StaticResource RegularLabelFont14}"
+                    Text="12 Mins"
+                    TextColor="{StaticResource Gray100}"
+                    VerticalOptions="CenterAndExpand" />
+            </StackLayout>
+        </Grid>
+        <View.GestureRecognizers>
+            <TapGestureRecognizer
+                CommandParameter="{Binding ModelData}" 
+                Command="{Binding TapCommand}" 
+                Tapped="OnViewTapped"/>
+        </View.GestureRecognizers>
+    </Frame>
+
+</ContentView>

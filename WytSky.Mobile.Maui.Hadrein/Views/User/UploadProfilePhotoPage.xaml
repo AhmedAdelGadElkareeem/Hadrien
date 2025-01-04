@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<base:BaseContentPage
+    x:Class="WytSky.Mobile.Maui.Hadrein.Views.User.UploadProfilePhotoPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:WytSky.Mobile.Maui.Hadrein.Views"
+    xmlns:behaviors="clr-namespace:WytSky.Mobile.Maui.Hadrein.Behaviors"
+    xmlns:borderless="clr-namespace:WytSky.Mobile.Maui.Hadrein.CustomControl.Borderless"
+    xmlns:customControl="clr-namespace:WytSky.Mobile.Maui.Hadrein.CustomControl"
+    xmlns:resource="clr-namespace:WytSky.Mobile.Maui.Hadrein.AppResources"
+    Title="UploadProfilePhotoPage">
+    <ScrollView>
+        <VerticalStackLayout Margin="15,0">
+            <customControl:BackView />
+            <Label
+                Margin="0,20,0,0"
+                FontSize="28"
+                Style="{StaticResource BoldLabelFont22}"
+                Text="{x:Static resource:SharedResources.Text_UploadYourPhotoProfile}"
+                TextColor="{StaticResource Black}"
+                VerticalOptions="CenterAndExpand" />
+            <Label
+                Margin="0,10,0,0"
+                Style="{StaticResource RegularLabelFont14}"
+                Text="{x:Static resource:SharedResources.Text_ThisDataWillDisplayedInYourProfile}"
+                TextColor="{StaticResource Black}"
+                VerticalOptions="CenterAndExpand" />
+
+            <Frame
+                Margin="10,80,10,0"
+                Padding="0"
+                BackgroundColor="{StaticResource White}"
+                CornerRadius="10"
+                HeightRequest="120">
+                <VerticalStackLayout Margin="10" HorizontalOptions="CenterAndExpand">
+                    <Image
+                        HeightRequest="60"
+                        HorizontalOptions="CenterAndExpand"
+                        Source="gallery" />
+                    <Label
+                        Margin="0,10,0,0"
+                        HorizontalOptions="CenterAndExpand"
+                        Style="{StaticResource RegularLabelFont16}"
+                        Text="{x:Static resource:SharedResources.Text_Gallery}"
+                        VerticalOptions="CenterAndExpand" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame
+                Margin="10,30,10,0"
+                Padding="0"
+                BackgroundColor="{StaticResource White}"
+                CornerRadius="10"
+                HeightRequest="120">
+                <VerticalStackLayout Margin="10" HorizontalOptions="CenterAndExpand">
+                    <Image
+                        HeightRequest="60"
+                        HorizontalOptions="CenterAndExpand"
+                        Source="camera" />
+                    <Label
+                        Margin="0,10,0,0"
+                        HorizontalOptions="CenterAndExpand"
+                        Style="{StaticResource RegularLabelFont16}"
+                        Text="{x:Static resource:SharedResources.Text_Camera}"
+                        VerticalOptions="CenterAndExpand" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame Margin="0,90,0,0" Style="{StaticResource FrameNext}">
+                <Grid
+                    Margin="10,5"
+                    ColumnDefinitions="auto,*"
+                    HorizontalOptions="CenterAndExpand">
+                    <Label
+                        HorizontalOptions="CenterAndExpand"
+                        Style="{StaticResource BoldLabelFont18}"
+                        Text="{x:Static resource:SharedResources.Text_Skip}"
+                        TextColor="{StaticResource White}" />
+                    <customControl:WhiteBackView Grid.Column="1" />
+                </Grid>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer />
+                </Frame.GestureRecognizers>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
+</base:BaseContentPage>

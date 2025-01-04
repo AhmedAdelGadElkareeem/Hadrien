@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<base:BaseContentView
+    x:Class="WytSky.Mobile.Maui.Hadrein.CustomControl.BackView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:WytSky.Mobile.Maui.Hadrein.CustomControl"
+    x:Name="root">
+    <Image
+        x:Name="back"
+        Margin="15,10,15,0"
+        x:FieldModifier="public"
+        BindingContext="{x:Reference root}"
+        Style="{StaticResource BackImageStyle}">
+        <Image.Triggers>
+            <DataTrigger
+                Binding="{Binding BindingContext.Lang, Source={x:Reference root}}"
+                TargetType="Image"
+                Value="ar">
+                <Setter Property="Rotation" Value="180" />
+            </DataTrigger>
+        </Image.Triggers>
+        <Image.GestureRecognizers>
+            <TapGestureRecognizer Tapped="Back" />
+        </Image.GestureRecognizers>
+    </Image>
+</base:BaseContentView>

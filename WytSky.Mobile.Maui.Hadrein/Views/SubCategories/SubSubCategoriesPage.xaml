@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<base:BaseContentPage
+    x:Class="WytSky.Mobile.Maui.Hadrein.Views.SubCategories.SubSubCategoriesPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:WytSky.Mobile.Maui.Hadrein.Views"
+    xmlns:customcontrol="clr-namespace:WytSky.Mobile.Maui.Hadrein.CustomControl.Borderless"
+    xmlns:customcontrols="clr-namespace:WytSky.Mobile.Maui.Hadrein.CustomControl"
+    xmlns:dataTemplates="clr-namespace:WytSky.Mobile.Maui.Hadrein.DataTemplates"
+    xmlns:resource="clr-namespace:WytSky.Mobile.Maui.Hadrein.AppResources">
+    
+    <Grid RowDefinitions="auto,auto,*">
+        
+        <!-- Header -->
+        <customcontrols:CustomHeader
+            GridCommand="{Binding ChangeToGridCommand}"
+            IsGridListVisible="True"
+            IsSearchVisible="True"
+            IsGrid="{Binding IsListVisible}"
+            ListCommand="{Binding ChangeToListCommand}"
+            SearchText="{Binding SubSubCategorySearchText}" />
+
+        <dataTemplates:CategoriesCollectionView
+            Categories="{Binding SubCategories}"
+            Grid.Row="1"
+            x:Name="subCategories"
+            TapCommand="{Binding BindingContext.SelectedSubCategoryInSubSubPageCommand, Source={x:Reference subCategories}}"
+            />
+
+        <!-- Main Categories -->
+        <!--<CollectionView
+            x:Name="subCategories"
+            Grid.Row="1"
+            Margin="10,5"
+            ItemsSource="{Binding SubCategories}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Label
+                        HorizontalOptions="CenterAndExpand"
+                        Style="{StaticResource BoldLabelFont16}"
+                        Text="{Binding Name}"
+                        TextColor="{Binding TextColor}"
+                        VerticalOptions="CenterAndExpand">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding BindingContext.SelectedSubCategoryInSubSubPageCommand, Source={x:Reference subCategories}}" CommandParameter="{Binding .}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <customcontrols:EmptyView />
+            </CollectionView.EmptyView>
+        </CollectionView>-->
+
+        <!-- List Categories -->
+        <CollectionView
+            x:Name="subSubCategories"
+            Grid.Row="2"
+            Margin="15,10"
+            IsVisible="{Binding IsListVisible}"
+            ItemsSource="{Binding SubSubCategories}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <dataTemplates:CatgeoryListDT 
+                        ModelData="{Binding .}"
+                        TapCommand="{Binding BindingContext.SelectedSubSubCategoryCommand, Source={x:Reference gridSubSubCategories}}"
+                        IsVisibleRate="True"
+                        IsVisibleDeliveryPrice="True"
+                        IsVisibleTime="False"/>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <customcontrols:EmptyView />
+            </CollectionView.EmptyView>
+        </CollectionView>
+
+        <!-- Grid Categories -->
+        <CollectionView
+            x:Name="gridSubSubCategories"
+            Grid.Row="2"
+            Margin="15,20,15,10"
+            IsVisible="{Binding IsListVisible, Converter={StaticResource InvertedBoolConverter}}"
+            ItemsSource="{Binding SubSubCategories}">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout
+                    HorizontalItemSpacing="10"
+                    Orientation="Vertical"
+                    Span="2"
+                    VerticalItemSpacing="10" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <dataTemplates:CatgeoryGridDT 
+                        ImageAspect="AspectFill"
+                        ModelData="{Binding .}"
+                        TapCommand="{Binding BindingContext.SelectedSubSubCategoryCommand, Source={x:Reference gridSubSubCategories}}"
+                        IsVisibleRate="True"
+                        IsVisibleDeliveryPrice="True"
+                        IsVisibleTime="False"/>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <customcontrols:EmptyView />
+            </CollectionView.EmptyView>
+        </CollectionView>
+    </Grid>
+    
+</base:BaseContentPage>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<base:BaseContentPage
+    x:Class="WytSky.Mobile.Maui.Hadrein.Views.User.MyProfilePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:WytSky.Mobile.Maui.Hadrein.Views"
+    xmlns:behaviors="clr-namespace:WytSky.Mobile.Maui.Hadrein.Behaviors"
+    xmlns:borderless="clr-namespace:WytSky.Mobile.Maui.Hadrein.CustomControl.Borderless"
+    xmlns:customControl="clr-namespace:WytSky.Mobile.Maui.Hadrein.CustomControl"
+    xmlns:resource="clr-namespace:WytSky.Mobile.Maui.Hadrein.AppResources"
+    Title="MyProfilePage">
+    <ScrollView>
+        <VerticalStackLayout>
+            <customControl:BackView />
+
+            <Image
+                Aspect="AspectFit"
+                HeightRequest="250"
+                Source="profile_image"
+                WidthRequest="250" />
+
+            <VerticalStackLayout Margin="20,0">
+                <Frame
+                    Margin="0,20,0,0"
+                    Padding="0"
+                    BackgroundColor="{StaticResource White}"
+                    CornerRadius="10">
+                    <Grid Margin="10,5" ColumnDefinitions="auto,*">
+                        <Image
+                            Aspect="AspectFit"
+                            HeightRequest="20"
+                            Source="profile"
+                            WidthRequest="20" />
+                        <borderless:BorderlessEntry
+                            Grid.Column="1"
+                            Margin="10,0"
+                            ClearButtonVisibility="WhileEditing"
+                            FontSize="16"
+                            Placeholder="{x:Static resource:SharedResources.Text_Name}"
+                            ReturnType="Next"
+                            Text="{Binding Name}" />
+                    </Grid>
+                </Frame>
+                <Frame
+                    Margin="0,20,0,0"
+                    Padding="0"
+                    BackgroundColor="{StaticResource White}"
+                    CornerRadius="10">
+                    <Grid Margin="10,5" ColumnDefinitions="auto,*">
+                        <Image
+                            Aspect="AspectFit"
+                            HeightRequest="20"
+                            Source="phone"
+                            WidthRequest="20" />
+                        <borderless:BorderlessEntry
+                            Grid.Column="1"
+                            Margin="10,0"
+                            ClearButtonVisibility="WhileEditing"
+                            FontSize="16"
+                            Keyboard="Telephone"
+                            Placeholder="+9665########"
+                            ReturnType="Next"
+                            Text="{Binding Phone}" />
+                    </Grid>
+                </Frame>
+                <Frame
+                    Margin="0,20,0,0"
+                    Padding="0"
+                    BackgroundColor="{StaticResource White}"
+                    CornerRadius="10">
+                    <Grid Margin="10,5" ColumnDefinitions="auto,*">
+                        <Image
+                            Aspect="AspectFit"
+                            HeightRequest="20"
+                            Source="email"
+                            WidthRequest="20" />
+                        <borderless:BorderlessEntry
+                            Grid.Column="1"
+                            Margin="10,0"
+                            FontSize="16"
+                            Placeholder="{x:Static resource:SharedResources.Text_Email}"
+                            ReturnType="Next"
+                            Text="{Binding Email}">
+                            <Entry.Behaviors>
+                                <behaviors:EmailValidBehavior />
+                            </Entry.Behaviors>
+                        </borderless:BorderlessEntry>
+                    </Grid>
+                </Frame>
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</base:BaseContentPage>

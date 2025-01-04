@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customcontrols="clr-namespace:WytSky.Mobile.Maui.Hadrein.CustomControl"
+    x:Class="WytSky.Mobile.Maui.Hadrein.DataTemplates.CategoriesCollectionView"
+    x:Name="_root">
+    <Frame
+        BackgroundColor="{StaticResource White}"
+        BindingContext="{x:Reference _root}"
+        Margin="5"
+        Padding="5"
+        CornerRadius="25">
+        <CollectionView
+            Margin="0"
+            ItemsSource="{Binding Categories}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout
+                        Margin="15,0"
+                        VerticalOptions="FillAndExpand">
+                        <Frame
+                            BackgroundColor="{StaticResource PrimaryColor}"
+                            IsVisible="{Binding IsSelected}"
+                            Margin="2"
+                            Padding="5"
+                            HeightRequest="35"
+                            CornerRadius="20">
+                            <Label
+                                HorizontalOptions="CenterAndExpand"
+                                Style="{StaticResource BoldLabelFont16}"
+                                Text="{Binding Name}"
+                                Margin="10,0"
+                                TextColor="{StaticResource White}"
+                                VerticalOptions="CenterAndExpand"/>
+                        </Frame>
+                        <Label
+                            HorizontalOptions="CenterAndExpand"
+                            IsVisible="{Binding IsSelected, Converter={StaticResource InvertedBoolConverter}}"
+                            Style="{StaticResource BoldLabelFont16}"
+                            Text="{Binding Name}"
+                            HeightRequest="35"
+                            VerticalTextAlignment="Center"
+                            TextColor="{StaticResource PrimaryColor}"
+                            VerticalOptions="FillAndExpand"/>
+                        <View.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding TapCommand,Source={x:Reference _root}}" CommandParameter="{Binding .}" />
+                        </View.GestureRecognizers>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <customcontrols:EmptyView />
+            </CollectionView.EmptyView>
+        </CollectionView>
+    </Frame>
+</ContentView>

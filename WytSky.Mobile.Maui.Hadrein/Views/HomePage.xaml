@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<base:BaseContentPage
+    x:Class="WytSky.Mobile.Maui.Hadrein.Views.HomePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:WytSky.Mobile.Maui.Hadrein.Views"
+    xmlns:customHeader="clr-namespace:WytSky.Mobile.Maui.Hadrein.CustomControl"
+    xmlns:dataTemplates="clr-namespace:WytSky.Mobile.Maui.Hadrein.DataTemplates"
+    xmlns:customcontrol="clr-namespace:WytSky.Mobile.Maui.Hadrein.CustomControl.Borderless"
+    xmlns:resource="clr-namespace:WytSky.Mobile.Maui.Hadrein.AppResources"
+    Title="HomePage">
+    <ScrollView
+        HorizontalOptions="FillAndExpand"
+        VerticalOptions="FillAndExpand"
+        VerticalScrollBarVisibility="Never">
+        <VerticalStackLayout>
+            <customHeader:CustomHeader IsMenuVisible="True" IsSearchVisible="False" />
+
+            <!--  Main Catgories  -->
+            <CollectionView
+                x:Name="mainCategories"
+                Margin="15,20,15,0"
+                ItemsSource="{Binding MainCategories}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout
+                        HorizontalItemSpacing="10"
+                        Orientation="Vertical"
+                        Span="2"
+                        VerticalItemSpacing="10" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <dataTemplates:CatgeoryGridDT 
+                            ModelData="{Binding .}"
+                            ImageAspect="AspectFit"
+                            TapCommand="{Binding BindingContext.SelectedMainCategoryCommand, Source={x:Reference mainCategories}}"
+                            IsVisibleTime="False"
+                            IsVisibleRate="False"
+                            IsVisibleDeliveryPrice="False"/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <customHeader:EmptyView />
+                </CollectionView.EmptyView>
+            </CollectionView>
+
+            <!--  Free Delivery Frame  -->
+            <Frame
+                Grid.Column="1"
+                Margin="15,20,5,0"
+                Padding="0"
+                BackgroundColor="{StaticResource BlueColor}"
+                CornerRadius="15"
+                HeightRequest="200"
+                IsVisible="false">
+                <Grid
+                    Margin="5,0"
+                    ColumnDefinitions="*,auto"
+                    HorizontalOptions="FillAndExpand">
+                    <StackLayout>
+                        <Label
+                            FontFamily="ProductSansBold"
+                            FontSize="28"
+                            HorizontalOptions="CenterAndExpand"
+                            Text="{x:Static resource:SharedResources.Text_FreeDeliveryOneMonth}"
+                            TextColor="{StaticResource Black}"
+                            VerticalOptions="CenterAndExpand" />
+                        <Label
+                            Grid.Column="1"
+                            FontSize="15"
+                            HorizontalOptions="CenterAndExpand"
+                            Text="{x:Static resource:SharedResources.Text_FreeDeliveryForOrder}"
+                            TextColor="Gray"
+                            VerticalOptions="CenterAndExpand" />
+                    </StackLayout>
+
+                    <Image
+                        Grid.Column="1"
+                        Aspect="AspectFit"
+                        HeightRequest="150"
+                        Source="free_delivery"
+                        WidthRequest="150" />
+                </Grid>
+            </Frame>
+
+            <!--  Offers  -->
+            <VerticalStackLayout IsVisible="false">
+                <Grid Margin="15,10,15,0" ColumnDefinitions="*,auto">
+                    <Label
+                        Margin="0,20,0,0"
+                        FontAttributes="Bold"
+                        FontFamily="ProductSansBold"
+                        FontSize="25"
+                        HorizontalOptions="FillAndExpand"
+                        Text="{x:Static resource:SharedResources.Text_Offers}"
+                        TextColor="{StaticResource Black}" />
+                    <Label
+                        Grid.Column="1"
+                        Margin="0,20,0,0"
+                        FontSize="14"
+                        HorizontalOptions="EndAndExpand"
+                        Text="{x:Static resource:SharedResources.Text_ViewMore}"
+                        TextColor="{StaticResource PrimaryColor}"
+                        VerticalOptions="CenterAndExpand">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenOffersCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+                <CarouselView
+                    x:Name="resturantOffers"
+                    Margin="15,10,15,0"
+                    HeightRequest="300"
+                    IndicatorView="indicatorView">
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <Image
+                                Aspect="AspectFit"
+                                HeightRequest="300"
+                                Source="resturant_offer">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BindingContext.SelectedCategoryCommand, Source={x:Reference resturantOffers}}" CommandParameter="{Binding .}" />
+                                </Image.GestureRecognizers>
+                            </Image>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+                <IndicatorView
+                    x:Name="indicatorView"
+                    HorizontalOptions="Center"
+                    IndicatorColor="{StaticResource PrimaryColor}"
+                    SelectedIndicatorColor="DarkGray" />
+            </VerticalStackLayout>
+
+            <!--  Nearests  -->
+            <CollectionView Margin="10,0" ItemsSource="{Binding NearestsList}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <VerticalStackLayout>
+                            <Label
+                                Margin="0,20,0,0"
+                                FontAttributes="Bold"
+                                FontFamily="ProductSansBold"
+                                FontSize="25"
+                                HorizontalOptions="FillAndExpand"
+                                Text="{Binding CategoryName}"
+                                TextColor="{StaticResource Black}" />
+                            <CollectionView
+                                x:Name="nearest"
+                                Margin="15,10,15,0"
+                                HeightRequest="220"
+                                ItemsSource="{Binding Nearests}">
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <dataTemplates:CatgeoryGridDT 
+                                            WidthRequest="150" 
+                                            HeightRequest="200"
+                                            ModelData="{Binding .}"
+                                            ViewTapped="ItemSelected"
+                                            IsVisibleRate="True"
+                                            IsVisibleDeliveryPrice="True"
+                                            IsVisibleTime="False"/>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <customHeader:EmptyView />
+                </CollectionView.EmptyView>
+            </CollectionView>
+
+            <!--  Featured Resturants  -->
+            <VerticalStackLayout IsVisible="false">
+                <Grid Margin="15,10,15,0" ColumnDefinitions="*,auto">
+                    <Label
+                        Margin="0,20,0,0"
+                        FontAttributes="Bold"
+                        FontFamily="ProductSansBold"
+                        FontSize="25"
+                        HorizontalOptions="FillAndExpand"
+                        Text="{x:Static resource:SharedResources.Text_FeaturedRestaurant}"
+                        TextColor="{StaticResource Black}" />
+                    <Label
+                        Grid.Column="1"
+                        Margin="0,20,0,0"
+                        FontSize="14"
+                        HorizontalOptions="EndAndExpand"
+                        Text="{x:Static resource:SharedResources.Text_ViewMore}"
+                        TextColor="{StaticResource PrimaryColor}"
+                        VerticalOptions="CenterAndExpand" />
+                </Grid>
+                <CollectionView
+                    x:Name="featuredResturants"
+                    Margin="15,10"
+                    HeightRequest="350"
+                    ItemsSource="{Binding FeaturedResturants}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="5" Orientation="Horizontal" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame
+                                Padding="0"
+                                BackgroundColor="{StaticResource White}"
+                                CornerRadius="20"
+                                HeightRequest="320"
+                                HorizontalOptions="FillAndExpand"
+                                IsClippedToBounds="True"
+                                WidthRequest="250">
+                                <StackLayout VerticalOptions="FillAndExpand">
+                                    <Grid>
+                                        <Image
+                                            Aspect="AspectFill"
+                                            HeightRequest="150"
+                                            Source="featured_resturant" />
+                                        <StackLayout
+                                            Margin="10,5"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal"
+                                            VerticalOptions="Start">
+                                            <Frame
+                                                Padding="0"
+                                                BackgroundColor="{StaticResource White}"
+                                                CornerRadius="30"
+                                                HeightRequest="35"
+                                                HorizontalOptions="Start"
+                                                WidthRequest="110">
+                                                <Grid Margin="5" ColumnDefinitions="auto,auto,auto">
+                                                    <Label
+                                                        Margin="5,0"
+                                                        FontAttributes="Bold"
+                                                        FontSize="18"
+                                                        Text="4.5"
+                                                        TextColor="{StaticResource Black}"
+                                                        VerticalOptions="CenterAndExpand" />
+                                                    <Image
+                                                        Grid.Column="1"
+                                                        Margin="5,0"
+                                                        HeightRequest="15"
+                                                        Source="rate"
+                                                        WidthRequest="15" />
+                                                    <Label
+                                                        Grid.Column="2"
+                                                        Margin="5,0"
+                                                        FontAttributes="Bold"
+                                                        FontSize="12"
+                                                        Text="(25+)"
+                                                        TextColor="Gray"
+                                                        VerticalOptions="CenterAndExpand" />
+                                                </Grid>
+                                            </Frame>
+                                            <Image
+                                                Grid.Column="1"
+                                                Margin="5,0"
+                                                HeightRequest="30"
+                                                HorizontalOptions="EndAndExpand"
+                                                Source="fav"
+                                                WidthRequest="30" />
+                                        </StackLayout>
+                                    </Grid>
+                                    <Grid Margin="10,5" ColumnDefinitions="auto,*">
+                                        <Frame
+                                            Padding="0"
+                                            CornerRadius="60"
+                                            HeightRequest="60"
+                                            WidthRequest="60">
+                                            <Image Aspect="AspectFill" Source="{Binding CatgeoryImageUrl}" />
+                                        </Frame>
+                                        <StackLayout
+                                            Grid.Column="1"
+                                            Margin="10,0"
+                                            HeightRequest="40"
+                                            Orientation="Horizontal"
+                                            VerticalOptions="CenterAndExpand">
+                                            <Label
+                                                FontFamily="ProductSansBold"
+                                                FontSize="22"
+                                                HorizontalOptions="Start"
+                                                MaxLines="1"
+                                                Text="{Binding Name}"
+                                                TextColor="{StaticResource Black}"
+                                                VerticalOptions="CenterAndExpand" />
+                                            <Image
+                                                Margin="5,0"
+                                                Aspect="AspectFit"
+                                                HeightRequest="15"
+                                                Source="light_green_sign"
+                                                VerticalOptions="CenterAndExpand"
+                                                WidthRequest="15" />
+                                        </StackLayout>
+                                    </Grid>
+                                    <Grid
+                                        Margin="10,5"
+                                        ColumnDefinitions="*,*"
+                                        ColumnSpacing="0">
+                                        <Grid ColumnDefinitions="auto,*" HorizontalOptions="FillAndExpand">
+                                            <Image
+                                                Aspect="AspectFit"
+                                                HeightRequest="25"
+                                                Source="delivery"
+                                                WidthRequest="25" />
+                                            <Label
+                                                Grid.Column="1"
+                                                Margin="10,0"
+                                                Style="{StaticResource RegularLabelFont14}"
+                                                Text="Free Delivery"
+                                                TextColor="{StaticResource Gray100}"
+                                                VerticalOptions="CenterAndExpand" />
+                                        </Grid>
+                                        <Grid
+                                            Grid.Column="1"
+                                            ColumnDefinitions="auto,*"
+                                            IsVisible="false">
+                                            <Image
+                                                Aspect="AspectFit"
+                                                HeightRequest="25"
+                                                Source="time"
+                                                WidthRequest="20" />
+                                            <Label
+                                                Grid.Column="1"
+                                                Margin="10,0"
+                                                Style="{StaticResource RegularLabelFont14}"
+                                                Text="10-15 mins"
+                                                TextColor="{StaticResource Gray100}"
+                                                VerticalOptions="CenterAndExpand" />
+                                        </Grid>
+                                    </Grid>
+                                    <Grid
+                                        Margin="10"
+                                        ColumnDefinitions="*,*,*"
+                                        ColumnSpacing="10"
+                                        HeightRequest="30">
+                                        <Frame
+                                            Padding="0"
+                                            BackgroundColor="#F6F6F6"
+                                            CornerRadius="5">
+                                            <Label
+                                                Margin="15,1"
+                                                FontSize="12"
+                                                HorizontalOptions="CenterAndExpand"
+                                                HorizontalTextAlignment="Center"
+                                                Text="Burger"
+                                                TextColor="#8A8E9B"
+                                                VerticalOptions="CenterAndExpand" />
+                                        </Frame>
+                                        <Frame
+                                            Grid.Column="1"
+                                            Padding="0"
+                                            BackgroundColor="#F6F6F6"
+                                            CornerRadius="5">
+                                            <Label
+                                                Margin="15,1"
+                                                FontSize="12"
+                                                HorizontalOptions="CenterAndExpand"
+                                                HorizontalTextAlignment="Center"
+                                                Text="Chicken"
+                                                TextColor="#8A8E9B"
+                                                VerticalOptions="CenterAndExpand" />
+                                        </Frame>
+                                        <Frame
+                                            Grid.Column="2"
+                                            Padding="0"
+                                            BackgroundColor="#F6F6F6"
+                                            CornerRadius="5">
+                                            <Label
+                                                Margin="15,1"
+                                                FontSize="12"
+                                                HorizontalOptions="CenterAndExpand"
+                                                HorizontalTextAlignment="Center"
+                                                Text="Fast Food"
+                                                TextColor="#8A8E9B"
+                                                VerticalOptions="CenterAndExpand" />
+                                        </Frame>
+                                    </Grid>
+                                </StackLayout>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BindingContext.SelectedCategoryCommand, Source={x:Reference featuredResturants}}" CommandParameter="{Binding .}" />
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    <CollectionView.EmptyView>
+                        <customHeader:EmptyView />
+                    </CollectionView.EmptyView>
+                </CollectionView>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</base:BaseContentPage>

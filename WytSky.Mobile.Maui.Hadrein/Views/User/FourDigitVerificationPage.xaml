@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<base:BaseContentPage
+    x:Class="WytSky.Mobile.Maui.Hadrein.Views.User.FourDigitVerificationPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:WytSky.Mobile.Maui.Hadrein.Views"
+    xmlns:behaviors="clr-namespace:WytSky.Mobile.Maui.Hadrein.Behaviors"
+    xmlns:borderless="clr-namespace:WytSky.Mobile.Maui.Hadrein.CustomControl.Borderless"
+    xmlns:customControl="clr-namespace:WytSky.Mobile.Maui.Hadrein.CustomControl"
+    xmlns:resource="clr-namespace:WytSky.Mobile.Maui.Hadrein.AppResources">
+    <base:BaseContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="borderless:BorderlessEntry">
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontFamily" Value="ProductSansBold" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="MaxLength" Value="1" />
+                <Setter Property="Placeholder" Value="*" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </base:BaseContentPage.Resources>
+    <ScrollView>
+        <VerticalStackLayout Margin="15,0">
+            <customControl:BackView />
+            <Label
+                Margin="0,20,0,0"
+                FontSize="28"
+                Style="{StaticResource BoldLabelFont22}"
+                Text="{x:Static resource:SharedResources.Text_Enter4DigitVerificationCode}"
+                TextColor="{StaticResource Black}"
+                VerticalOptions="CenterAndExpand" />
+            <Label
+                Margin="0,10,0,0"
+                Style="{StaticResource BoldLabelFont14}"
+                TextColor="{StaticResource Black}"
+                VerticalOptions="CenterAndExpand">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{x:Static resource:SharedResources.Text_CodeSentTo}" />
+                        <Span Text=" " />
+                        <Span x:Name="phoneNumber" />
+                        <Span Text=" " />
+                        <Span Text="{x:Static resource:SharedResources.Text_CodeWillExpireIn}" />
+                        <Span Text=" 01:30 " />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Frame
+                Margin="20,30,20,0"
+                Padding="0"
+                BackgroundColor="{StaticResource White}"
+                CornerRadius="10"
+                HeightRequest="60">
+                <Grid
+                    Grid.ColumnSpan="0"
+                    Margin="0,10"
+                    ColumnDefinitions="*,*,*,*">
+                    <borderless:BorderlessEntry />
+                    <borderless:BorderlessEntry Grid.Column="1" />
+                    <borderless:BorderlessEntry Grid.Column="2" />
+                    <borderless:BorderlessEntry Grid.Column="3" />
+                </Grid>
+            </Frame>
+            <Frame Margin="0,90,0,0" Style="{StaticResource FrameNext}">
+                <Grid
+                    Margin="10,5"
+                    ColumnDefinitions="auto,*"
+                    HorizontalOptions="CenterAndExpand">
+                    <Label
+                        HorizontalOptions="CenterAndExpand"
+                        Style="{StaticResource BoldLabelFont18}"
+                        Text="{x:Static resource:SharedResources.Text_Next}"
+                        TextColor="{StaticResource White}" />
+                    <customControl:WhiteBackView Grid.Column="1" />
+                </Grid>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer />
+                </Frame.GestureRecognizers>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</base:BaseContentPage>

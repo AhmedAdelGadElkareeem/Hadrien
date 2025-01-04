@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<base:BaseContentPage
+    x:Class="WytSky.Mobile.Maui.Hadrein.Views.User.MyOrdersPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:WytSky.Mobile.Maui.Hadrein.Views"
+    xmlns:customControl="clr-namespace:WytSky.Mobile.Maui.Hadrein.CustomControl"
+    xmlns:resource="clr-namespace:WytSky.Mobile.Maui.Hadrein.AppResources"
+    Title="MyOrdersPage">
+    <Grid RowDefinitions="auto,auto,*">
+        <customControl:CustomHeader IsMenuVisible="False" IsSearchVisible="False" />
+        <Frame
+            Grid.Row="1"
+            Margin="20,10"
+            Padding="0"
+            BackgroundColor="{StaticResource White}"
+            CornerRadius="40">
+            <Grid Margin="10" ColumnDefinitions="*,*">
+                <Frame
+                    x:Name="upcomingFrame"
+                    BackgroundColor="{StaticResource PrimaryColor}"
+                    CornerRadius="30"
+                    HasShadow="False">
+                    <Label
+                        x:Name="upcomingLabel"
+                        HorizontalOptions="CenterAndExpand"
+                        Style="{StaticResource BoldLabelFont18}"
+                        Text="{x:Static resource:SharedResources.Text_UpComing}"
+                        TextColor="{StaticResource White}" />
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="UpcomingClicked" />
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <Frame
+                    x:Name="historyFrame"
+                    Grid.Column="1"
+                    CornerRadius="30"
+                    HasShadow="False">
+                    <Label
+                        x:Name="historyLabel"
+                        HorizontalOptions="CenterAndExpand"
+                        Style="{StaticResource BoldLabelFont18}"
+                        Text="{x:Static resource:SharedResources.Text_History}"
+                        TextColor="{StaticResource PrimaryColor}" />
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="HistoryClicked" />
+                    </Frame.GestureRecognizers>
+                </Frame>
+            </Grid>
+        </Frame>
+
+        <CollectionView
+            x:Name="upcomingList"
+            Grid.Row="2"
+            ItemsSource="{Binding UpcomingOrders}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame
+                        Grid.Row="2"
+                        Margin="15,5"
+                        Padding="10"
+                        BackgroundColor="{StaticResource White}"
+                        CornerRadius="10">
+                        <VerticalStackLayout Margin="10,0">
+                            <Grid ColumnDefinitions="auto,*,auto">
+                                <Frame
+                                    Padding="0"
+                                    BackgroundColor="{StaticResource White}"
+                                    CornerRadius="10"
+                                    HeightRequest="60"
+                                    WidthRequest="60">
+                                    <Image
+                                        Margin="5"
+                                        Aspect="AspectFit"
+                                        HeightRequest="50"
+                                        Source="test_image"
+                                        WidthRequest="50" />
+                                </Frame>
+                                <VerticalStackLayout Grid.Column="1" Margin="10,0">
+                                    <Label
+                                        Style="{StaticResource RegularLabelFont12}"
+                                        Text="3 items"
+                                        TextColor="{StaticResource Gray100}" />
+                                    <Label
+                                        Margin="0,5,0,0"
+                                        Style="{StaticResource BoldLabelFont18}"
+                                        Text="{Binding ItemName}"
+                                        TextColor="{StaticResource Black}"
+                                        VerticalOptions="CenterAndExpand" />
+                                </VerticalStackLayout>
+                                <Label
+                                    Grid.Column="2"
+                                    TextColor="{StaticResource FourthColor}"
+                                    VerticalOptions="Start">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span FontFamily="ProductSansRegular" Text="#" />
+                                            <Span FontFamily="ProductSansRegular" Text="{Binding OrderID}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </Grid>
+                            <Grid Margin="0,5,0,0" ColumnDefinitions="*,auto">
+                                <Label
+                                    Style="{StaticResource RegularLabelFont16}"
+                                    Text="Estimated arrival"
+                                    TextColor="{StaticResource Gray100}" />
+                                <Label
+                                    Grid.Column="1"
+                                    Style="{StaticResource RegularLabelFont12}"
+                                    Text="{Binding Approval}"
+                                    TextColor="{StaticResource Gray100}" />
+                            </Grid>
+                            <Grid Margin="0,5,0,0" ColumnDefinitions="*,auto">
+                                <Label Style="{StaticResource RegularLabelFont16}" TextColor="{StaticResource Black}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span
+                                                FontAttributes="Bold"
+                                                FontSize="22"
+                                                Text="25" />
+                                            <Span FontSize="12" Text=" min" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label
+                                    Grid.Column="1"
+                                    Style="{StaticResource RegularLabelFont14}"
+                                    Text="{Binding Status}"
+                                    TextColor="{StaticResource Black}"
+                                    VerticalOptions="Start" />
+                            </Grid>
+                            <Grid
+                                Margin="0,10,0,0"
+                                ColumnDefinitions="*,*"
+                                ColumnSpacing="10">
+                                <Frame
+                                    Padding="10"
+                                    BorderColor="{StaticResource PrimaryColor}"
+                                    CornerRadius="30"
+                                    HasShadow="False">
+                                    <Label
+                                        HorizontalOptions="CenterAndExpand"
+                                        Style="{StaticResource BoldLabelFont18}"
+                                        Text="{x:Static resource:SharedResources.Text_Cancel}"
+                                        TextColor="{StaticResource PrimaryColor}" />
+                                </Frame>
+                                <Frame
+                                    Grid.Column="1"
+                                    Padding="10"
+                                    BackgroundColor="{StaticResource PrimaryColor}"
+                                    CornerRadius="30"
+                                    HasShadow="False">
+                                    <Label
+                                        HorizontalOptions="CenterAndExpand"
+                                        Style="{StaticResource BoldLabelFont18}"
+                                        Text="{x:Static resource:SharedResources.Text_TrackOrder}"
+                                        TextColor="{StaticResource White}" />
+                                </Frame>
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <customControl:EmptyView />
+            </CollectionView.EmptyView>
+        </CollectionView>
+
+        <CollectionView
+            x:Name="historyList"
+            Grid.Row="2"
+            IsVisible="false"
+            ItemsSource="{Binding HistoryOrders}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame
+                        Grid.Row="3"
+                        Margin="15,5"
+                        Padding="10"
+                        BackgroundColor="{StaticResource White}"
+                        CornerRadius="10">
+                        <VerticalStackLayout Margin="10,0">
+                            <Grid ColumnDefinitions="auto,*,auto">
+                                <Frame
+                                    Padding="0"
+                                    BackgroundColor="{StaticResource White}"
+                                    CornerRadius="10"
+                                    HeightRequest="60"
+                                    WidthRequest="60">
+                                    <Image
+                                        Margin="5"
+                                        Aspect="AspectFit"
+                                        HeightRequest="50"
+                                        Source="test_image"
+                                        WidthRequest="50" />
+                                </Frame>
+                                <VerticalStackLayout Grid.Column="1" Margin="10,0">
+                                    <Grid ColumnDefinitions="*,auto">
+                                        <Label TextColor="{StaticResource Black}">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span
+                                                        FontFamily="OpenSansRegular"
+                                                        FontSize="14"
+                                                        Text="{Binding OrderDateString}" />
+                                                    <Span Text="  " />
+                                                    <Span FontFamily="OpenSansRegular" Text="3 items" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label
+                                            Grid.Column="1"
+                                            Style="{StaticResource BoldLabelFont16}"
+                                            Text="{Binding FinalAmount}"
+                                            TextColor="{StaticResource Black}" />
+                                    </Grid>
+                                    <Label
+                                        Margin="0,10,0,0"
+                                        Style="{StaticResource BoldLabelFont18}"
+                                        Text="{Binding ItemName}"
+                                        TextColor="{StaticResource Black}"
+                                        VerticalOptions="CenterAndExpand" />
+                                    <Label
+                                        Margin="0,10,0,0"
+                                        Style="{StaticResource RegularLabelFont16}"
+                                        Text="{Binding Status}"
+                                        TextColor="{StaticResource PrimaryColor}"
+                                        VerticalOptions="CenterAndExpand" />
+                                </VerticalStackLayout>
+                            </Grid>
+                            <Grid
+                                Margin="0,10,0,0"
+                                ColumnDefinitions="*,*"
+                                ColumnSpacing="10">
+                                <Frame
+                                    Padding="10"
+                                    BorderColor="{StaticResource PrimaryColor}"
+                                    CornerRadius="30"
+                                    HasShadow="False">
+                                    <Label
+                                        HorizontalOptions="CenterAndExpand"
+                                        Style="{StaticResource BoldLabelFont18}"
+                                        Text="{x:Static resource:SharedResources.Text_RateOrder}"
+                                        TextColor="{StaticResource PrimaryColor}" />
+                                </Frame>
+                                <Frame
+                                    Grid.Column="1"
+                                    Padding="10"
+                                    BackgroundColor="{StaticResource PrimaryColor}"
+                                    CornerRadius="30"
+                                    HasShadow="False">
+                                    <Label
+                                        HorizontalOptions="CenterAndExpand"
+                                        Style="{StaticResource BoldLabelFont18}"
+                                        Text="{x:Static resource:SharedResources.Text_ReOrder}"
+                                        TextColor="{StaticResource White}" />
+                                </Frame>
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <customControl:EmptyView />
+            </CollectionView.EmptyView>
+        </CollectionView>
+    </Grid>
+</base:BaseContentPage>

@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<base:BaseContentPage
+    x:Class="WytSky.Mobile.Maui.Hadrein.Views.SubCategories.MainSubcategoriesPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:WytSky.Mobile.Maui.Hadrein.Views"
+    xmlns:customcontrol="clr-namespace:WytSky.Mobile.Maui.Hadrein.CustomControl.Borderless"
+    xmlns:customcontrols="clr-namespace:WytSky.Mobile.Maui.Hadrein.CustomControl"
+    xmlns:dataTemplates="clr-namespace:WytSky.Mobile.Maui.Hadrein.DataTemplates"
+    xmlns:resource="clr-namespace:WytSky.Mobile.Maui.Hadrein.AppResources">
+    <Grid RowDefinitions="auto,auto,*">
+
+        <customcontrols:CustomHeader
+            GridCommand="{Binding ChangeToGridCommand}"
+            IsGridListVisible="True"
+            IsSearchVisible="True"
+            IsGrid="{Binding IsListVisible}"
+            ListCommand="{Binding ChangeToListCommand}"
+            SearchText="{Binding SearchText}" />
+
+        <dataTemplates:CategoriesCollectionView
+            Categories="{Binding MainCategories}"
+            Grid.Row="1"
+            x:Name="mainCategories"
+            TapCommand="{Binding BindingContext.SelectedMainCategoryFromMainSubCateoriesCommand, Source={x:Reference mainCategories}}"
+            />
+        <!--<CollectionView
+            x:Name="mainCategories"
+            Grid.Row="1"
+            Margin="10,5"
+            ItemsSource="{Binding MainCategories}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Label
+                        HorizontalOptions="CenterAndExpand"
+                        Style="{StaticResource BoldLabelFont16}"
+                        Text="{Binding Name}"
+                        TextColor="{Binding TextColor}"
+                        VerticalOptions="CenterAndExpand">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding BindingContext.SelectedMainCategoryFromMainSubCateoriesCommand, Source={x:Reference mainCategories}}" CommandParameter="{Binding .}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <customcontrols:EmptyView />
+            </CollectionView.EmptyView>
+        </CollectionView>-->
+
+        <CollectionView
+            x:Name="subCategories"
+            Grid.Row="2"
+            Margin="15,10"
+            IsVisible="{Binding IsListVisible}"
+            ItemsSource="{Binding SubCategories}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame
+                        Padding="0"
+                        BackgroundColor="{StaticResource White}"
+                        CornerRadius="10">
+                        <Grid Margin="10,5" ColumnDefinitions="auto,*">
+                            <VerticalStackLayout>
+                                <Frame
+                                    Margin="5"
+                                    Padding="0"
+                                    BackgroundColor="{StaticResource White}"
+                                    CornerRadius="20"
+                                    HeightRequest="80"
+                                    IsClippedToBounds="True"
+                                    WidthRequest="80">
+                                    <Image Aspect="AspectFill" Source="{Binding CatgeoryImageUrl}" />
+                                </Frame>
+                            </VerticalStackLayout>
+                            <VerticalStackLayout
+                                Grid.Column="1"
+                                Margin="10,5"
+                                VerticalOptions="Start">
+                                <Label
+                                    HorizontalOptions="FillAndExpand"
+                                    Style="{StaticResource BoldLabelFont18}"
+                                    Text="{Binding Name}"
+                                    TextColor="{StaticResource Black}"
+                                    VerticalOptions="Start" />
+                                <Grid
+                                    Margin="0,10,0,0"
+                                    ColumnDefinitions="auto,*"
+                                    RowSpacing="0"
+                                    VerticalOptions="Start">
+                                    <Image
+                                        Aspect="AspectFit"
+                                        HeightRequest="15"
+                                        Source="delivery"
+                                        VerticalOptions="Start"
+                                        WidthRequest="15" />
+                                    <Label
+                                        Grid.Column="1"
+                                        Margin="5,0"
+                                        Style="{StaticResource RegularLabelFont12}"
+                                        Text="{x:Static resource:SharedResources.Text_FreeDelivery}"
+                                        TextColor="{StaticResource Gray200}"
+                                        VerticalOptions="CenterAndExpand" />
+                                </Grid>
+                                <Frame
+                                    Margin="0,10,0,0"
+                                    Padding="2"
+                                    BackgroundColor="{StaticResource White}"
+                                    CornerRadius="30"
+                                    HeightRequest="30"
+                                    HorizontalOptions="StartAndExpand"
+                                    WidthRequest="80">
+                                    <Grid Margin="5,0" ColumnDefinitions="auto,auto,auto">
+                                        <Label
+                                            FontAttributes="Bold"
+                                            Style="{StaticResource BoldLabelFont12}"
+                                            Text="4.5"
+                                            TextColor="{StaticResource Black}"
+                                            VerticalOptions="CenterAndExpand" />
+                                        <Image
+                                            Grid.Column="1"
+                                            Margin="3,0"
+                                            HeightRequest="10"
+                                            Source="rate"
+                                            VerticalOptions="CenterAndExpand"
+                                            WidthRequest="10" />
+                                        <Label
+                                            Grid.Column="2"
+                                            Style="{StaticResource RegularLabelFont12}"
+                                            Text="(25+)"
+                                            TextColor="{StaticResource Gray100}"
+                                            VerticalOptions="CenterAndExpand" />
+                                    </Grid>
+                                </Frame>
+                                <Grid
+                                    Margin="0,10,0,0"
+                                    ColumnDefinitions="auto,*"
+                                    IsVisible="false">
+                                    <Image
+                                        Aspect="AspectFit"
+                                        HeightRequest="15"
+                                        Source="time"
+                                        VerticalOptions="Start"
+                                        WidthRequest="15" />
+                                    <Label
+                                        Grid.Column="1"
+                                        Margin="5,0"
+                                        Style="{StaticResource RegularLabelFont12}"
+                                        Text="10-15 mins"
+                                        TextColor="{StaticResource Gray200}"
+                                        VerticalOptions="CenterAndExpand" />
+                                </Grid>
+                            </VerticalStackLayout>
+                        </Grid>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding BindingContext.SelectedSubCategoryCommand, Source={x:Reference subCategories}}" CommandParameter="{Binding .}" />
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <customcontrols:EmptyView />
+            </CollectionView.EmptyView>
+        </CollectionView>
+
+        <CollectionView
+            x:Name="gridSubCategories"
+            Grid.Row="2"
+            Margin="15,20,15,10"
+            IsVisible="{Binding IsListVisible, Converter={StaticResource InvertedBoolConverter}}"
+            ItemsSource="{Binding SubCategories}">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout
+                    HorizontalItemSpacing="10"
+                    Orientation="Vertical"
+                    Span="2"
+                    VerticalItemSpacing="10" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame
+                        Margin="5"
+                        Padding="0"
+                        BackgroundColor="{StaticResource White}"
+                        CornerRadius="10">
+                        <VerticalStackLayout>
+                            <Grid>
+                                <Image
+                                    Aspect="AspectFill"
+                                    HeightRequest="150"
+                                    Source="{Binding CatgeoryImageUrl}" />
+                                <Frame
+                                    Margin="10,5"
+                                    Padding="2"
+                                    BackgroundColor="{StaticResource White}"
+                                    CornerRadius="30"
+                                    HeightRequest="30"
+                                    HorizontalOptions="Start"
+                                    VerticalOptions="Start"
+                                    WidthRequest="75">
+                                    <Grid Margin="5,0" ColumnDefinitions="auto,auto,auto">
+                                        <Label
+                                            FontAttributes="Bold"
+                                            Style="{StaticResource BoldLabelFont12}"
+                                            Text="4.5"
+                                            TextColor="{StaticResource Black}"
+                                            VerticalOptions="CenterAndExpand" />
+                                        <Image
+                                            Grid.Column="1"
+                                            Margin="3,0"
+                                            HeightRequest="10"
+                                            Source="rate"
+                                            VerticalOptions="CenterAndExpand"
+                                            WidthRequest="10" />
+                                        <Label
+                                            Grid.Column="2"
+                                            Style="{StaticResource RegularLabelFont12}"
+                                            Text="(25+)"
+                                            TextColor="{StaticResource Gray100}"
+                                            VerticalOptions="CenterAndExpand" />
+                                    </Grid>
+                                </Frame>
+                            </Grid>
+                            <VerticalStackLayout
+                                Grid.Column="1"
+                                Margin="10,5"
+                                VerticalOptions="Start">
+                                <Label
+                                    HorizontalOptions="FillAndExpand"
+                                    LineBreakMode="TailTruncation"
+                                    MaxLines="2"
+                                    Style="{StaticResource BoldLabelFont18}"
+                                    Text="{Binding Name}"
+                                    TextColor="{StaticResource Black}"
+                                    VerticalOptions="Start" />
+                                <Grid
+                                    Margin="0,5,0,0"
+                                    ColumnDefinitions="auto,*"
+                                    RowSpacing="0"
+                                    VerticalOptions="Start">
+                                    <Image
+                                        Aspect="AspectFit"
+                                        HeightRequest="15"
+                                        Source="delivery"
+                                        VerticalOptions="Start"
+                                        WidthRequest="15" />
+                                    <Label
+                                        Grid.Column="1"
+                                        Margin="5,0"
+                                        Style="{StaticResource RegularLabelFont12}"
+                                        Text="{x:Static resource:SharedResources.Text_FreeDelivery}"
+                                        TextColor="{StaticResource Gray200}"
+                                        VerticalOptions="CenterAndExpand" />
+                                </Grid>
+                                <Grid ColumnDefinitions="auto,*" IsVisible="false">
+                                    <Image
+                                        Aspect="AspectFit"
+                                        HeightRequest="15"
+                                        Source="time"
+                                        VerticalOptions="Start"
+                                        WidthRequest="15" />
+                                    <Label
+                                        Grid.Column="1"
+                                        Margin="5,0"
+                                        Style="{StaticResource RegularLabelFont12}"
+                                        Text="10-15 mins"
+                                        TextColor="{StaticResource Gray200}"
+                                        VerticalOptions="CenterAndExpand" />
+                                </Grid>
+                            </VerticalStackLayout>
+                        </VerticalStackLayout>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding BindingContext.SelectedSubCategoryCommand, Source={x:Reference gridSubCategories}}" CommandParameter="{Binding .}" />
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <customcontrols:EmptyView />
+            </CollectionView.EmptyView>
+        </CollectionView>
+    </Grid>
+</base:BaseContentPage>

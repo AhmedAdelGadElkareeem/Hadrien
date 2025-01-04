@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<base:BaseContentPage
+    x:Class="WytSky.Mobile.Maui.Hadrein.Views.SplashViews.OnBoardingPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:WytSky.Mobile.Maui.Hadrein.Views"
+    xmlns:customControl="clr-namespace:WytSky.Mobile.Maui.Hadrein.CustomControl">
+    <VerticalStackLayout>
+        <CarouselView
+            x:Name="carouselList"
+            ItemsSource="{Binding CarouselItems}"
+            Position="{Binding PositionSelected}">
+            <CarouselView.ItemTemplate>
+                <DataTemplate>
+                    <VerticalStackLayout Margin="15,100,15,0">
+                        <Image
+                            Aspect="AspectFill"
+                            BackgroundColor="Transparent"
+                            HeightRequest="300"
+                            Source="{Binding Image}" />
+                        <Label
+                            Margin="0,30,0,0"
+                            Style="{StaticResource BoldLabelFont20}"
+                            Text="{Binding Title}"
+                            TextColor="{StaticResource Black}" />
+                        <Label
+                            Margin="0,30,0,0"
+                            Style="{StaticResource RegularLabelFont14}"
+                            Text="{Binding Description}"
+                            TextColor="{StaticResource Black}" />
+                        <Image
+                            Margin="0,40,0,0"
+                            Aspect="AspectFit"
+                            HeightRequest="50"
+                            HorizontalOptions="CenterAndExpand"
+                            Source="{Binding ImageNumber}"
+                            WidthRequest="50" />
+                        <VerticalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding BindingContext.ChangePositionCommand, Source={x:Reference carouselList}}" />
+                        </VerticalStackLayout.GestureRecognizers>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
+        <Label
+            Margin="0,40,0,0"
+            HorizontalOptions="CenterAndExpand"
+            Style="{StaticResource RegularLabelFont16}"
+            Text="Skip"
+            TextColor="{StaticResource Gray200}">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding SkipCommand}" />
+            </Label.GestureRecognizers>
+        </Label>
+    </VerticalStackLayout>
+</base:BaseContentPage>

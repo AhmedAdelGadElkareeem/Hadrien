@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<base:BaseContentPage
+    x:Class="WytSky.Mobile.Maui.Hadrein.Views.ItemsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:WytSky.Mobile.Maui.Hadrein.Views"
+    xmlns:customControl="clr-namespace:WytSky.Mobile.Maui.Hadrein.CustomControl"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
+    xmlns:dataTemplates="clr-namespace:WytSky.Mobile.Maui.Hadrein.DataTemplates"
+    xmlns:resource="clr-namespace:WytSky.Mobile.Maui.Hadrein.AppResources">
+    <Grid RowDefinitions="auto,auto,*,auto">
+        <customControl:CustomHeader
+            GridCommand="{Binding ChangeToGridCommand}"
+            IsGridListVisible="True"
+            IsSearchVisible="True"
+            IsGrid="{Binding IsListVisible}"
+            ListCommand="{Binding ChangeToListCommand}"
+            SearchText="{Binding ItemsSearchText}" />
+
+        <!--  Categories  -->
+        <dataTemplates:CategoriesCollectionView
+            Categories="{Binding Categories}"
+            Grid.Row="1"
+            x:Name="categoriesList"
+            TapCommand="{Binding BindingContext.SelectedCategoryCommand, Source={x:Reference categoriesList}}"
+            />
+        <!--<CollectionView
+            x:Name="categoriesList"
+            Grid.Row="1"
+            Margin="5,0"
+            HeightRequest="50"
+            ItemsSource="{Binding Categories}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Label
+                        FontSize="18"
+                        Text="{Binding Name}"
+                        TextColor="{Binding TextColor}"
+                        VerticalOptions="CenterAndExpand">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding BindingContext.SelectedCategoryCommand, Source={x:Reference categoriesList}}" CommandParameter="{Binding .}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>-->
+
+        <!--  Items Vertical List  -->
+        <CollectionView
+            x:Name="items"
+            Grid.Row="2"
+            Margin="5,5,5,0"
+            IsVisible="{Binding IsListVisible}"
+            ItemsSource="{Binding Items}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <dataTemplates:ItemListDT
+                        ImageAspect="AspectFill"
+                        ModelData="{Binding .}"
+                        IncreaseQuantityCommand="{Binding BindingContext.IncreaseQuantityCommand, Source={x:Reference gridItems}}"
+                        DecreaseQuantityCommand="{Binding BindingContext.DecreaseQuantityCommand, Source={x:Reference gridItems}}"
+                        TapCommand="{Binding BindingContext.SelectedSubSubCategoryCommand, Source={x:Reference gridSubSubCategories}}"/>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <customControl:EmptyView />
+            </CollectionView.EmptyView>
+        </CollectionView>
+
+        <!--  Items Grid  -->
+        <CollectionView
+            x:Name="gridItems"
+            Grid.Row="2"
+            Margin="5,5,5,0"
+            IsVisible="{Binding IsListVisible, Converter={StaticResource InvertedBoolConverter}}"
+            ItemsSource="{Binding Items}">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout
+                    HorizontalItemSpacing="10"
+                    Orientation="Vertical"
+                    Span="2"
+                    VerticalItemSpacing="10" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <dataTemplates:ItemGridDT 
+                        ImageAspect="AspectFill"
+                        ModelData="{Binding .}"
+                        IncreaseQuantityCommand="{Binding BindingContext.IncreaseQuantityCommand, Source={x:Reference gridItems}}"
+                        DecreaseQuantityCommand="{Binding BindingContext.DecreaseQuantityCommand, Source={x:Reference gridItems}}"
+                        TapCommand="{Binding BindingContext.SelectedSubSubCategoryCommand, Source={x:Reference gridSubSubCategories}}"/>     
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <customControl:EmptyView />
+            </CollectionView.EmptyView>
+        </CollectionView>
+
+        <Frame
+            Grid.Row="4"
+            Margin="10,5"
+            Padding="0"
+            BackgroundColor="{StaticResource White}"
+            CornerRadius="10">
+            <Grid Margin="5,5" ColumnDefinitions="auto,*,auto">
+                <Image
+                    Aspect="AspectFit"
+                    Margin="5"
+                    HeightRequest="40"
+                    Source="cart" />
+                <StackLayout Grid.Column="1" Margin="5">
+                    <Label
+                        Style="{StaticResource BoldLabelFont18}"
+                        TextColor="{StaticResource Black}"
+                        VerticalOptions="CenterAndExpand">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding TotalItems}" />
+                                <Span Text=" " />
+                                <Span Text="{x:Static resource:SharedResources.Text_Items}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label
+                        Margin="2"
+                        LineBreakMode="TailTruncation"
+                        Style="{StaticResource RegularLabelFont14}"
+                        Text="{x:Static resource:SharedResources.Text_DeliveryFromRestaurantName}"
+                        TextColor="{StaticResource Gray100}"
+                        VerticalOptions="CenterAndExpand" />
+                </StackLayout>
+                <Frame 
+                    Margin="5"
+                    Padding="3"
+                    CornerRadius="15"
+                    BackgroundColor="WhiteSmoke"
+                    Grid.Column="2">
+                    <Label
+                        Grid.Column="2"
+                        Margin="5"
+                        BackgroundColor="WhiteSmoke"
+                        HorizontalOptions="EndAndExpand"
+                        FontSize="16"
+                        TextColor="{StaticResource PrimaryColor}"
+                        VerticalOptions="CenterAndExpand">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding SubTotal}" />
+                                <Span Text=" " />
+                                <Span Text="{Binding CurrencyName}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </Frame>
+            </Grid>
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OpenCartItems" />
+            </Frame.GestureRecognizers>
+        </Frame>
+    </Grid>
+</base:BaseContentPage>

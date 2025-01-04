@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<base:BaseContentPage
+    x:Class="WytSkyECommerceTalabat.Views.CategoriesPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:base="clr-namespace:WytSkyECommerceTalabat.Views"
+    xmlns:customcontrol="clr-namespace:WytSkyECommerceTalabat.CustomControl.Borderless"
+    xmlns:customcontrols="clr-namespace:WytSkyECommerceTalabat.CustomControl">
+    <Grid RowDefinitions="auto,*">
+        <Grid Margin="15,20,15,0" ColumnDefinitions="auto,*">
+            <customcontrols:BackView />
+            <Label
+                Grid.Column="1"
+                Margin="0,10,0,0"
+                FontAttributes="Bold"
+                HorizontalOptions="CenterAndExpand"
+                Style="{StaticResource BoldLabelFont22}"
+                Text="{Binding ParentName}"
+                TextColor="{StaticResource Black}"
+                VerticalOptions="CenterAndExpand" />
+        </Grid>
+
+        <CollectionView
+            x:Name="subCategories"
+            Grid.Row="1"
+            Margin="20,20,20,0"
+            ItemsSource="{Binding SubCategories}">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout
+                    HorizontalItemSpacing="10"
+                    Orientation="Vertical"
+                    Span="4"
+                    VerticalItemSpacing="10" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame
+                        Padding="0"
+                        BackgroundColor="{StaticResource White}"
+                        CornerRadius="100"
+                        HeightRequest="130"
+                        WidthRequest="70">
+                        <VerticalStackLayout Margin="0,15,0,0">
+                            <Image
+                                Aspect="AspectFit"
+                                HeightRequest="60"
+                                Source="{Binding CatgeoryImageUrl}"
+                                WidthRequest="60" />
+                            <Label
+                                HorizontalOptions="CenterAndExpand"
+                                HorizontalTextAlignment="Center"
+                                Style="{StaticResource BoldLabelFont14}"
+                                Text="{Binding Name}"
+                                TextColor="{StaticResource Black100}"
+                                VerticalOptions="Start" />
+                        </VerticalStackLayout>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding BindingContext.SelectedCategoryCategoriesPageCommand, Source={x:Reference subCategories}}" CommandParameter="{Binding .}" />
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</base:BaseContentPage>
